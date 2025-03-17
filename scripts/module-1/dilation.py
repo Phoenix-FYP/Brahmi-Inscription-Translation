@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load image and convert to grayscale
-image = cv.imread("./data/module-1/images/test6.jpg")
+image = cv.imread("./data/module-1/images/test0.jpg")
 gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 
 # Apply Non-Local Means Denoising
