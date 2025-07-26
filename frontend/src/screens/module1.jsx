@@ -50,7 +50,7 @@ const Module1 = () => {
 
       {/* Denoised Images */}
       <div className="bg-gray-100 rounded-xl p-6 mb-8">
-        <h3 className="text-xl font-semibold mb-4">Denoised Process Images</h3>
+        <h3 className="text-xl font-semibold mb-4 text-center">Denoised Process Images</h3>
         <div className="flex gap-4 flex-wrap">
           {denoisedImages.map((src, idx) => (
             <img
