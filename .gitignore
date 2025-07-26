@@ -1,2 +1,51 @@
-/config
-/venv
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+
+# Environments
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs & editors
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and outputs
+*.log
+*.out
+
+# Builds
+build/
+dist/
+*.egg-info/
+
+# Data and results (optional if too big or generated)
+data/**/*.csv
+data/**/*.tsv
+results/**/*
+!data/README.md
+!results/README.md
+
+# Models (optional if you plan to store them locally only)
+models/**/*.pt
+models/**/*.pkl
+models/**/*.pth
+models/**/*.bin
+models/**/*.npz
+models/**/*.joblib
+
+# Requirements
+pip-log.txt
