@@ -8,16 +8,16 @@ import Module4 from "./module4";
 const Home = () => {
   return (
     <div>
-      <section id="module1">
+      <section id="module1" class="py-20">
         <Module1 />
       </section>
-      <section id="module2">
+      <section id="module2" class="py-20">
         <Module2 />
       </section>
-      <section id="module3">
+      <section id="module3" class=" py-20">
         <Module3 />
       </section>
-      <section id="module4">
+      <section id="module4" class="py-20 ">
         <Module4 />
       </section>
     </div>
