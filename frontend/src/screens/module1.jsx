@@ -1,7 +1,6 @@
 // screens/module1.jsx
 import React, { useState } from "react";
 import { FaUpload } from "react-icons/fa";
-import "../css/module1.css";
 
 const Module1 = () => {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -12,68 +11,91 @@ const Module1 = () => {
 
   const handleSelectImage = (img) => {
     setSelectedImages((prev) =>
-      prev.includes(img)
-        ? prev.filter((i) => i !== img)
-        : [...prev, img]
+      prev.includes(img) ? prev.filter((i) => i !== img) : [...prev, img]
     );
   };
 
   return (
-    <div className="module1-container">
-      <h2 className="module1-title">Image Preprocessing Component</h2>
+    <div className="m-8">
+      <h2 className="text-3xl font-bold text-center mb-8">
+        Image Preprocessing Component
+      </h2>
 
-      <div className="module1-box">
-        <p className="module1-subtitle">Please upload your Estampage Image:</p>
-        <label className="module1-upload">
-          <FaUpload className="upload-icon" />
+      {/* Upload Section */}
+      <div className="bg-gray-100 rounded-xl p-6 mb-8">
+        <p className="font-semibold mb-4">Please upload your Estampage Image:</p>
+
+        <label className="w-full max-w-md flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-lg p-6 bg-white cursor-pointer">
+          <FaUpload className="text-2xl text-gray-600 mb-2" />
+          <span className="text-sm text-gray-600">Click to upload</span>
           <input type="file" className="hidden" />
         </label>
 
-        <div className="threshold-section">
-          <label htmlFor="threshold">Enter the Threshold Value:</label>
+        <div className="flex items-center gap-4 mt-6">
+          <label htmlFor="threshold" className="font-medium">
+            Enter the Threshold Value:
+          </label>
           <input
             type="number"
             id="threshold"
-            className="threshold-input"
+            className="px-3 py-1 border border-gray-300 rounded-md w-32"
             value={threshold}
             onChange={(e) => setThreshold(e.target.value)}
           />
         </div>
-        <p className="threshold-note">
+        <p className="text-red-500 mt-2 text-sm">
           Threshold value should be adjusted accordingly.
         </p>
       </div>
 
-      <div className="module1-box">
-        <h3 className="module1-box-title">Denoised Process Images</h3>
-        <div className="image-preview-section">
+      {/* Denoised Images */}
+      <div className="bg-gray-100 rounded-xl p-6 mb-8">
+        <h3 className="text-xl font-semibold mb-4">Denoised Process Images</h3>
+        <div className="flex gap-4 flex-wrap">
           {denoisedImages.map((src, idx) => (
-            <img key={idx} src={src} alt="denoised" className="preview-img" />
+            <img
+              key={idx}
+              src={src}
+              alt="denoised"
+              className="w-24 h-24 rounded-md object-cover border border-gray-300"
+            />
           ))}
         </div>
       </div>
 
-      <div className="module1-box">
-        <h3 className="module1-box-title">Segmented Characters</h3>
-        <p className="module1-subtitle">
+      {/* Segmented Characters */}
+      <div className="bg-gray-100 rounded-xl p-6 mb-8">
+        <h3 className="text-xl font-semibold mb-2">Segmented Characters</h3>
+        <p className="text-sm text-gray-600 mb-4">
           You can select the image and discard if it's a noise.
         </p>
-        <div className="image-select-section">
+        <div className="flex gap-4 flex-wrap">
           {segmentedImages.map((src, idx) => (
             <div
               key={idx}
-              className={`selectable-img-box ${
-                selectedImages.includes(src) ? "selected" : ""
-              }`}
               onClick={() => handleSelectImage(src)}
+              className={`p-1 rounded-md border-2 cursor-pointer ${
+                selectedImages.includes(src)
+                  ? "border-blue-500"
+                  : "border-transparent"
+              }`}
             >
-              <img src={src} alt={`char-${idx}`} className="preview-img" />
+              <img
+                src={src}
+                alt={`char-${idx}`}
+                className="w-24 h-24 rounded-md object-cover border border-gray-300"
+              />
             </div>
           ))}
         </div>
       </div>
 
-      <button className="proceed-button">Proceed to Next Stage</button>
+      {/* Proceed Button */}
+      <div className="text-center">
+        <button className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">
+          Proceed to Next Stage
+        </button>
+      </div>
     </div>
   );
 };
