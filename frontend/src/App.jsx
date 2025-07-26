@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import Home from "./screens/home";
 
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 
 import './index.css';
 
@@ -11,7 +11,6 @@ import './index.css';
 function App() {
   return (
     <Router>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Home/>} />
       </Routes>
