@@ -24,8 +24,11 @@ def mock_byt5_correction(input_text):
     return corrections.get(input_text, input_text)  # Return input if no mock correction
 
 def run_pipeline(raw_input):
-    global corrected_sentence, evaluation_result
+    corrected_sentence = None
+    evaluation_result = None
     print("Raw Input:", raw_input)
+
+    raw_input = normalize_str(raw_input)
 
     # Stage 2 - BERT
     bert_words = segment_with_bert(raw_input)
@@ -84,6 +87,14 @@ def run_pipeline(raw_input):
     print("→ Needs Correction?:", needs_correction)
 
     if needs_correction:
+        reasons = []
+        if best_candidate["confidence"] < 0.9:
+            reasons.append("Low confidence")
+        if not best_candidate["is_fluent"]:
+            reasons.append("Not fluent")
+        if len(best_candidate["oov_indices"]) > 0:
+            reasons.append("Contains OOV words")
+        print("Correction Reason(s):", ", ".join(reasons))
         input_for_byt5 = " ".join(best_candidate["words"])
         print("Passing to ByT5 model:", input_for_byt5)
         #Call the byt5 Model later
@@ -107,6 +118,7 @@ def run_pipeline(raw_input):
         "result": comparison,
         "best": best_candidate,
         "needs_correction": needs_correction,
+        "correction_reasons": reasons if needs_correction else [],
         "corrected": corrected_sentence if needs_correction else None,
         "evaluation": evaluation_result if needs_correction else None,
         "fuzzy_matches": evaluation_result.get("fuzzy_matches", {}) if needs_correction else {},
