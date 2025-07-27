@@ -11,10 +11,6 @@ const sections = [
     content: "Reverence... Blessings of the Sangha",
   },
   {
-    title: "POS Tagging",
-    content: "අභිවන්දනා: Noun | සංඝානුභාවනා: Noun",
-  },
-  {
     title: "Greedy Based Segmentation",
     content: "Subject: අභිවන්දනා | Object: සංඝානුභාවනා",
   },
