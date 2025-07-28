@@ -2,6 +2,7 @@ from fastapi import APIRouter, UploadFile, Form
 from fastapi.responses import JSONResponse
 import os
 import shutil
+
 from services.pipeline.run_pipeline import run_full_pipeline, extract_image_number
 from services.module2.service import run_module2
 
@@ -12,30 +13,66 @@ async def run_pipeline(
     file: UploadFile,
     threshold: int = Form(2000),
 ):
+    # Define directories
     upload_dir = "./data/module-1/images"
     os.makedirs(upload_dir, exist_ok=True)
 
+    # Save uploaded file
     file_path = os.path.join(upload_dir, file.filename)
     with open(file_path, "wb") as f:
         shutil.copyfileobj(file.file, f)
 
+    # Extract image number
     image_no = extract_image_number(file_path)
-
+    output_dir = f"../results/module-1/image_{image_no}"
+    # Run the pipeline
     result = run_full_pipeline(image_path=file_path, image_no=image_no, threshold=threshold)
-
-    output_dir = f"./results/module1/image_{image_no}"
     char_images = [
-        f"/images/module1/image_{image_no}/{f}"
+        f"/images/module-1/image_{image_no}/{f}"
         for f in os.listdir(output_dir)
         if f.endswith(".png") and "_character_" in f
     ]
 
     return JSONResponse(content={
+        "message": "Pipeline completed successfully",
         "image_no": image_no,
-        "characters": char_images,
-        "denoised_image": f"/images/module1/image_{image_no}/denoised_image.png",
-        "final_image": f"/images/module1/image_{image_no}/final_image_second_pass.png"
+        "char_images": char_images
     })
+
+
+    # # Source directory for images (where pipeline saves them)
+    # output_dir = f"../results/module-1/image_{image_no}"
+
+    # # Target directory in root (relative to backend/api/api.py)
+    # target_dir = "../results/module-1"  # Adjusted path to root/results/module1
+    # os.makedirs(target_dir, exist_ok=True)
+
+    # # List of character images
+    # char_images = [
+    #     f"/images/module-1/image_{image_no}/{f}"
+    #     for f in os.listdir(output_dir)
+    #     if f.endswith(".png") and "_character_" in f
+    # ]
+
+    # # Files to copy
+    # files_to_copy = [
+    #     os.path.join(output_dir, f) for f in os.listdir(output_dir)
+    #     if f.endswith(".png") and ("_character_" in f or f in ["denoised_image.png", "final_image_second_pass.png"])
+    # ]
+
+    # # Copy files to target directory
+    # for file_path in files_to_copy:
+    #     file_name = os.path.basename(file_path)
+    #     target_path = os.path.join(target_dir, file_name)
+    #     shutil.copy(file_path, target_path)
+
+    # # Return response with paths relative to the original output directory
+    # return JSONResponse(content={
+    #     "image_no": image_no,
+    #     "characters": char_images,
+    #     "denoised_image": f"/images/module-1/image_{image_no}/denoised_image.png",
+    #     "final_image": f"/images/module-1/image_{image_no}/final_image_second_pass.png"
+    # })
 
 @app.post("/api/run-module2/")
 async def run_module2_endpoint(

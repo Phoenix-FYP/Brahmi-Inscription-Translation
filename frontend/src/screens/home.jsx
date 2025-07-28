@@ -8,6 +8,10 @@ import Module4 from "./module4";
 const Home = () => {
   return (
     <div>
+      <header className="bg-[#D8AF78] text-white p-4 text-center rounded">
+        <h1 className="text-3xl font-bold py-2">BRHAMIYA</h1>
+        <p className="text-lg">A tool for translating ancient Brahmi inscriptions</p>
+      </header> 
       <section id="module1" class="py-20">
         <Module1 />
       </section>

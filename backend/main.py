@@ -15,7 +15,7 @@ app.add_middleware(
 )
 
 # Mount static files
-app.mount("/images", StaticFiles(directory="./results"), name="images")
+app.mount("/images", StaticFiles(directory="../results"), name="images")
 
 # Include all routes from your api.py
 app.include_router(api.app)

@@ -75,7 +75,7 @@ const handleProceed = async () => {
   };
 
   return (
-    <div className="p-8 bg-slate-50 min-h-screen m-auto max-w-4xl">
+    <div className="bg-[#e3d6bf] mb-8 justify-center flex flex-col items-center p-15 max-w-3xl mx-auto rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Module 2</h2>
 
       {loading && (
@@ -83,7 +83,7 @@ const handleProceed = async () => {
       )}
 
       {error && (
-        <p className="text-center text-red-500 mb-4">{error}</p>
+        <p className="text-center text-red-600 font-semibold mb-4">{error}</p>
       )}
 
       {!loading && module2Data.length === 0 && !error && (

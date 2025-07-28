@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState } from "react";
-import Home from "./screens/Home";
+import Home from "./screens/home";
 import Module2 from "./screens/module2";
 
 const App = () => {

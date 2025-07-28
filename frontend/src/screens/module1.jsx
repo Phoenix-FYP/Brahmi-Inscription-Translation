@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaUpload } from "react-icons/fa";
 import axios from "axios";
-
+import imge3 from "../../../results/module-1/2_image_character_2.png";
 const Module1 = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [threshold, setThreshold] = useState(2000);
@@ -35,6 +35,7 @@ const Module1 = () => {
     formData.append("threshold", threshold);
 
     try {
+      console.log("I'm here before sending the request to the backend.");
       const response = await axios.post(
         "http://localhost:8000/api/run-pipeline/",
         formData,
@@ -42,14 +43,14 @@ const Module1 = () => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-         console.log("Im here"); 
+      console.log("Im here");
+      console.log("Response from backend:", response.data);
       // Update state with returned images
       setDenoisedImages([
-        `/results/module1/image_${response.data.image_no}/denoised_image.png`,
-        `/results/module1/image_${response.data.image_no}/final_image_second_pass.png`,
+        `/images/module-1/image_${response.data.image_no}/denoised_image.png`,
+        `/images/module-1/image_${response.data.image_no}/final_image_second_pass.png`,
       ]);
-      console.log("Denoised images:", response.data);
-      setSegmentedImages(response.data.characters || []);
+      setSegmentedImages(response.data.char_images || []);
     } catch (err) {
       setError("Error processing the image. Please try again.");
       console.error(err);
@@ -91,11 +92,11 @@ const Module1 = () => {
       </h2>
 
       {/* Upload Section */}
-      <div className="bg-gray-100 rounded-xl p-6 mb-8">
+      <div className="bg-[#e3d6bf] mb-8 justify-center flex flex-col items-center p-15 max-w-3xl mx-auto rounded-lg shadow-lg">
         <p className="font-semibold mb-4">Please upload your Estampage Image:</p>
 
         <label className="w-full max-w-md flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-lg p-6 bg-white cursor-pointer">
-          <FaUpload className="text-2xl text-gray-600 mb-2" />
+          <FaUpload className="text-2xl text-[#D8AF78] mb-2" />
           <span className="text-sm text-gray-600">Click to upload</span>
           <input
             type="file"
@@ -104,7 +105,7 @@ const Module1 = () => {
             onChange={handleFileChange}
           />
         </label>
-
+       
         <div className="flex items-center gap-4 mt-6">
           <label htmlFor="threshold" className="font-medium">
             Enter the Threshold Value:
@@ -112,12 +113,12 @@ const Module1 = () => {
           <input
             type="number"
             id="threshold"
-            className="px-3 py-1 border border-gray-300 rounded-md w-32"
+            className="px-3 py-1 border border-gray-300 bg-white rounded-md w-32"
             value={threshold}
             onChange={(e) => setThreshold(e.target.value)}
           />
         </div>
-        <p className="text-red-500 mt-2 text-sm">
+        <p className="text-red-600 font-semibold mt-2 text-sm">
           {error || "Threshold value should be adjusted accordingly."}
         </p>
 
@@ -125,7 +126,7 @@ const Module1 = () => {
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400"
+            className="px-6 py-2 bg-[#a68518] text-white rounded-lg font-semibold hover:bg-[#9b8e59] disabled:bg-gray-400"
           >
             {loading ? "Processing..." : "Submit"}
           </button>
@@ -134,17 +135,17 @@ const Module1 = () => {
 
       {/* Denoised Images */}
       {denoisedImages.length > 0 && (
-        <div className="bg-gray-100 rounded-xl p-6 mb-8">
+        <div className="bg-[#e3d6bf] mb-8 justify-center flex flex-col items-center p-15 max-w-3xl mx-auto rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold mb-4 text-center">
             Denoised Process Images
           </h3>
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-4 flex-wrap justify-center">
             {denoisedImages.map((src, idx) => (
               <img
                 key={idx}
                 src={src}
                 alt="denoised"
-                className="w-24 h-24 rounded-md object-cover border border-gray-300"
+                className="w-auto h-48 rounded-md object-cover border border-gray-300"
                 onError={() => console.error(`Failed to load image: ${src}`)}
               />
             ))}
@@ -154,26 +155,26 @@ const Module1 = () => {
 
       {/* Segmented Characters */}
       {segmentedImages.length > 0 && (
-        <div className="bg-gray-100 rounded-xl p-6 mb-8">
-          <h3 className="text-xl font-semibold mb-2">Segmented Characters</h3>
-          <p className="text-sm text-gray-600 mb-4">
+        <div className="bg-[#e3d6bf] mb-8 justify-center flex flex-col items-center p-15 max-w-3xl mx-auto rounded-lg shadow-lg">
+          <h3 className="text-xl font-semibold mb-2 ">Segmented Characters</h3>
+          <p className="text-sm text-gray-600 mb-4 r">
             You can select the image and discard if it's noise.
           </p>
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-4 flex-wrap justify-center">
             {segmentedImages.map((src, idx) => (
               <div
                 key={idx}
                 onClick={() => handleSelectImage(src)}
                 className={`p-1 rounded-md border-2 cursor-pointer ${
                   selectedImages.includes(src)
-                    ? "border-blue-500"
+                    ? "border-"
                     : "border-transparent"
                 }`}
               >
                 <img
                   src={src}
                   alt={`char-${idx}`}
-                  className="w-24 h-24 rounded-md object-cover border border-gray-300"
+                  className="w-auto h-32 rounded-md object-cover border border-gray-300"
                   onError={() => console.error(`Failed to load image: ${src}`)}
                 />
               </div>
@@ -188,7 +189,7 @@ const Module1 = () => {
           <button
             onClick={handleProceed}
             disabled={loading}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400"
+            className="px-6 py-2 bg-[#a68518] text-white rounded-lg font-semibold hover:bg-[#9b8e59] disabled:bg-gray-400"
           >
             {loading ? "Processing..." : "Proceed to Next Stage"}
           </button>

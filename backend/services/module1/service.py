@@ -1,7 +1,7 @@
 import os
 from .main import process_image
 
-def run_module1(image_path: str, image_no: int = 1, threshold: int = 2000, output_base: str = "./results/module1") -> dict:
+def run_module1(image_path: str, image_no: int = 1, threshold: int = 2000, output_base: str = "../frontend/public/images/module-1/") -> dict:
     """
     Handles output path setup and delegates to the module-1 processing logic.
     """

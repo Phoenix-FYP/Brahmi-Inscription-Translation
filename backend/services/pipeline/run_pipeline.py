@@ -35,12 +35,12 @@ def run_full_pipeline(image_path: str, image_no: int, threshold: int = 2000):
         shutil.copy(char_path, dst_path)
 
     print("Characters copied. Moving to Module 2...")
-
+    return
     # Run Module 2
-    predictions = run_module2(image_no=image_no, total_chars=total_chars, user_need="both")
+    # predictions = run_module2(image_no=image_no, total_chars=total_chars, user_need="both")
 
-    print("Module 2 complete.")
-    return predictions
+    # print("Module 2 complete.")
+    # return predictions
 
 def extract_image_number(image_path: str) -> int:
     """
