@@ -1,0 +1,126 @@
+12_1:
+  Random Forest : ප
+  Extra Trees   : ප
+  XGBoost       : ප
+  Final         : ප
+
+12_2:
+  Random Forest : ප
+  Extra Trees   : ප
+  XGBoost       : ප
+  Final         : ප
+
+12_3:
+  Random Forest : ර
+  Extra Trees   : ර
+  XGBoost       : රු
+  Final         : ර
+
+12_4:
+  Random Forest : ම
+  Extra Trees   : ම
+  XGBoost       : ම
+  Final         : ම
+
+12_5:
+  Random Forest : ක
+  Extra Trees   : ක
+  XGBoost       : ක
+  Final         : ක
+
+12_6:
+  Random Forest : ශ
+  Extra Trees   : ශ
+  XGBoost       : ශ
+  Final         : ශ
+
+12_7:
+  Random Forest : ම
+  Extra Trees   : ම
+  XGBoost       : මු
+  Final         : ම
+
+12_8:
+  Random Forest : හ
+  Extra Trees   : හ
+  XGBoost       : හ
+  Final         : හ
+
+12_9:
+  Random Forest : ලෙ
+  Extra Trees   : ලෙ
+  XGBoost       : ලෙ
+  Final         : ලෙ
+
+12_10:
+  Random Forest : ණෙ
+  Extra Trees   : ණෙ
+  XGBoost       : ණෙ
+  Final         : ණෙ
+
+12_11:
+  Random Forest : ශ
+  Extra Trees   : ශ
+  XGBoost       : ශ
+  Final         : ශ
+
+12_12:
+  Random Forest : ර
+  Extra Trees   : ර
+  XGBoost       : රු
+  Final         : ර
+
+12_13:
+  Random Forest : ග
+  Extra Trees   : ග
+  XGBoost       : ග
+  Final         : ග
+
+12_14:
+  Random Forest : ශ
+  Extra Trees   : ශ
+  XGBoost       : ශ
+  Final         : ශ
+
+12_15:
+  Random Forest : ම
+  Extra Trees   : ම
+  XGBoost       : ම
+  Final         : ම
+
+12_16:
+  Random Forest : ක
+  Extra Trees   : ක
+  XGBoost       : ක
+  Final         : ක
+
+12_17:
+  Random Forest : න
+  Extra Trees   : න
+  XGBoost       : උ
+  Final         : න
+
+12_18:
+  Random Forest : ශ
+  Extra Trees   : ත
+  XGBoost       : ත
+  Final         : ත
+
+12_19:
+  Random Forest : ප
+  Extra Trees   : ප
+  XGBoost       : ප
+  Final         : ප
+
+12_20:
+  Random Forest : ත
+  Extra Trees   : ත
+  XGBoost       : ත
+  Final         : ත
+
+12_21:
+  Random Forest : හ
+  Extra Trees   : හ
+  XGBoost       : හ
+  Final         : හ
+

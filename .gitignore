@@ -46,6 +46,9 @@ models/**/*.pth
 models/**/*.bin
 models/**/*.npz
 models/**/*.joblib
+models/
 
 # Requirements
 pip-log.txt
+
+backend/services/module4/stanza

@@ -76,7 +76,7 @@ class SinhalaCharacterPredictor:
     def decode(self, label):
         return self.le.inverse_transform([label])[0]
     
-    def predict(self, path):  # 👈 NOW this is inside the class
+    def predict(self, path):  #  NOW this is inside the class
         img = self.load_image(path)
         features = self.extract_features(img).reshape(1, -1)
 
@@ -88,9 +88,9 @@ class SinhalaCharacterPredictor:
         et_label = self.corrected_class_map.get(int(self.decode(et_pred)))
         xgb_label = self.corrected_class_map.get(int(self.decode(xgb_pred)))
 
-        plt.imshow(img)
-        plt.axis('off')
-        plt.show()
+        # plt.imshow(img)
+        # plt.axis('off')
+        # plt.show()
 
         print(f"Predictions:\nRandom Forest: {rf_label}\nExtra Trees: {et_label}\nXGBoost: {xgb_label}")
 
