@@ -1,21 +1,24 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+import Home from "./screens/Home";
+import Module2 from "./screens/module2";
 
-import Home from "./screens/home";
+const App = () => {
+  const [corpusOutput, setCorpusOutput] = useState("");
 
-// import Navbar from './components/Navbar';
-
-import './index.css';
-
-
-function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home setCorpusOutput={setCorpusOutput} />} />
+        <Route
+          path="/module2"
+          element={<Module2 setCorpusOutput={setCorpusOutput} />}
+        />
       </Routes>
     </Router>
   );
-}
+};
 
-export default App;
+export default
+
+ App;
