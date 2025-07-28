@@ -1,5 +1,3 @@
-# utils/postprocess.py
-
 def post_process_gender(sentence, xpos_tags):
     output = sentence.split()
     for i, (word, xpos) in enumerate(zip(output, xpos_tags)):

@@ -82,3 +82,25 @@ Gender-Corrected Sentence: උත්තර බ්‍රාහ්මණ පුත
 Morphologically Completed Sentence: උත්තර නම් බ්‍රාහ්මණ​ගේ පුත් වන ගුප්ත​ගේ ලෙ​ණ සංඝයාට දෙන ලදී
 ==================================================
 
+==================================================
+Brahmi Sentence (Input Words): බමණ උතර පුත ගුතහ ලෙණෙ ශගශ
+Mapped Sinhala Sentence: බ්‍රාහ්මණ උත්තර පුත් ගුප්ත ලෙ​ණ සංඝයා
+POS Tags: ['NOUN', 'PROPN', 'NOUN', 'PROPN', 'NOUN', 'NOUN']
+XPOS Tags: ['TITLE-MASC', '_', '_', '_', '_', '_']
+Dependencies: ['appos', 'nmod', 'compound', 'root', 'appos', 'nmod']
+Reordered Sentence: උත්තර බ්‍රාහ්මණ පුත් ගුප්ත ලෙ​ණ සංඝයා
+Gender-Corrected Sentence: උත්තර බ්‍රාහ්මණ පුත් ගුප්ත ලෙ​ණ සංඝයා
+Morphologically Completed Sentence: උත්තර නම් බ්‍රාහ්මණ​ගේ පුත් වන ගුප්ත​ගේ ලෙ​ණ සංඝයාට දෙන ලදී
+==================================================
+
+==================================================
+Brahmi Sentence (Input Words): බත නදහ ලෙණෙ
+Mapped Sinhala Sentence: ප්‍රධනියා නන්ද ලෙ​ණ
+POS Tags: ['NOUN', 'PROPN', 'NOUN']
+XPOS Tags: ['TITLE-MASC', '_', '_']
+Dependencies: ['appos', 'nmod', 'root']
+Reordered Sentence: නන්ද ප්‍රධනියා ලෙ​ණ
+Gender-Corrected Sentence: නන්ද ප්‍රධනියා ලෙ​ණ
+Morphologically Completed Sentence: නන්ද න​ම් ප්‍රධනියාගේ ලෙණ
+==================================================
+

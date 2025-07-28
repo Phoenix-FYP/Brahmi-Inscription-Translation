@@ -31,30 +31,6 @@ def clean_unicode_text(text):
     return text
 
 # === Dictionary Mapping ===
-# def map_words_to_meanings(word_list):
-#     try:
-#         df = pd.read_excel(DICTIONARY_FILE)
-#         word_map = dict(zip(df['Brhami Word'], df['Meaning']))
-#         meanings = []
-#         missing_words = []
-
-#         for word in word_list:
-#             if word in word_map:
-#                 meanings.append(word_map[word])
-#             else:
-#                 missing_words.append(word)
-
-#         if missing_words:
-#             error_message = f"Error: The following words were not found in the Excel file: {', '.join(missing_words)}"
-#             with open('error_log.txt', 'w') as f:
-#                 f.write(error_message)
-#             return None
-
-#         # return clean_unicode_text(' '.join(meanings))
-#         return ' '.join(meanings)
-#     except Exception as e:
-#         logging.error(f"Dictionary mapping failed: {str(e)}")
-#         return None
 def map_words_to_meanings(word_list):
     try:
         df = pd.read_excel(DICTIONARY_FILE)

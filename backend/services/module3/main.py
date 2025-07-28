@@ -12,6 +12,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 NGRAM_MODEL_PATH = os.path.join(BASE_DIR, "../../../models/module-3/ngram_model")
 WORD_DICT_PATH = os.path.join(BASE_DIR, "../../../data/module-3/dictionary/brahmi_dictionary.csv")
 
+
 # === Load dictionary and N-gram model
 
 
@@ -105,7 +106,7 @@ def run_pipeline(raw_input):
             verbose=True
         )
 
-    return {
+    result = {
         "input": raw_input,
         "bert": bert_words,
         "ltr": ltr_words,
@@ -122,31 +123,93 @@ def run_pipeline(raw_input):
         "ngram_score": evaluation_result.get("ngram_score") if needs_correction else None
     }
 
-# === Entry point
-if __name__ == "__main__":
-    sample = "පමමකශිවහලෙණෙශගශ"  # Update this as needed
-    result = run_pipeline(sample)
+   # === Save result to result/module3/ folder ===
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    result_dir = os.path.join(BASE_DIR, '..', '..', 'results', 'module3')
+    os.makedirs(result_dir, exist_ok=True)
 
-    # === Prepare output directory
-    ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../../"))
-    OUTPUT_DIR = os.path.join(ROOT_DIR, "results", "module3")
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-    # === Build output dict
-    output_data = {
-        "best": result.get("best", {}).get("words", []),
-        "corrected": result.get("corrected", "").split() if result.get("corrected") else [],
-        "full_result": result
-    }
-
-    # === Generate file name
-    safe_id = normalize_str(sample)[:10].replace(" ", "_") or "output"
     timestamp = time.strftime("%Y%m%d-%H%M%S")
-    output_filename = f"{safe_id}_{timestamp}.json"
+    json_file_path = os.path.join(result_dir, f"output_{timestamp}.json")
+    with open(json_file_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=4)
+    print(f"\n Result saved to: {json_file_path}")
 
-    # === Save to file
-    output_path = os.path.join(OUTPUT_DIR, output_filename)
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(output_data, f, ensure_ascii=False, indent=2)
+    # === Save best result as plain text ===
+    txt_file_path = os.path.join(result_dir, f"result.txt")
+    with open(txt_file_path, "w", encoding="utf-8") as f:
+        f.write("result = " + str(result["best"]["words"]))
+    print(f" Best result saved to: {txt_file_path}\n")
 
-    print(f"\nOutput saved to: {output_path}")
+    return result
+    
+
+# # === Entry point
+# if __name__ == "__main__":
+#     sample = "පමමකශිවහලෙණෙශගශ" 
+#     result = run_pipeline(sample)
+
+#     print('im hereee')
+
+#     # === Prepare output directory
+#     ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../../"))
+#     OUTPUT_DIR = os.path.join(ROOT_DIR, "results", "module3")
+#     os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+#     # === Build output dict
+#     output_data = {
+#         "best": result.get("best", {}).get("words", []),
+#         "corrected": result.get("corrected", "").split() if result.get("corrected") else [],
+#         "full_result": result
+#     }
+
+#     # === Generate file name
+#     safe_id = normalize_str(sample)[:10].replace(" ", "_") or "output"
+#     timestamp = time.strftime("%Y%m%d-%H%M%S")
+#     output_filename = f"{safe_id}_{timestamp}.json"
+
+#     # # === Save to file
+#     # output_path = os.path.join(OUTPUT_DIR, output_filename)
+#     # with open(output_path, "w", encoding="utf-8") as f:
+#     #     json.dump(output_data, f, ensure_ascii=False, indent=2)
+
+#     # print(f"\nOutput saved to: {output_path}")
+#     # === Build output dict
+#     output_data = {
+#         "best": result.get("best", {}).get("words", []),
+#         "corrected": result.get("corrected", "").split() if result.get("corrected") else [],
+#         "full_result": result
+#     }
+
+#     # === Generate file name
+#     safe_id = normalize_str(sample)[:10].replace(" ", "_") or "output"
+#     timestamp = time.strftime("%Y%m%d-%H%M%S")
+#     output_filename = f"{safe_id}_{timestamp}.json"
+
+#     # === Save to both results/ and results/module3/
+#     ROOT_RESULTS_DIR = os.path.join(ROOT_DIR, "results")
+#     MODULE3_RESULTS_DIR = os.path.join(ROOT_RESULTS_DIR, "module3")
+#     os.makedirs(ROOT_RESULTS_DIR, exist_ok=True)
+#     os.makedirs(MODULE3_RESULTS_DIR, exist_ok=True)
+
+#     for path in [
+#         os.path.join(ROOT_RESULTS_DIR, output_filename),
+#         os.path.join(MODULE3_RESULTS_DIR, output_filename)
+#     ]:
+#         with open(path, "w", encoding="utf-8") as f:
+#             json.dump(output_data, f, ensure_ascii=False, indent=2)
+#         print(f"Output saved to: {path}")
+
+#     # === Save to text file
+#     txt_output_path = os.path.join(OUTPUT_DIR, f"{output_filename}.txt")
+#     with open(txt_output_path, "w", encoding="utf-8") as f:
+#         f.write("Raw Input: " + result["input"] + "\n")
+#         f.write("Best Segmentation: " + " ".join(result["best"]["words"]) + "\n")
+#         if result["needs_correction"]:
+#             f.write("Corrected: " + result["corrected"] + "\n")
+#         f.write("\nCandidate Evaluation:\n")
+#         for method, data in result["result"]["candidates"].items():
+#             f.write(f"{method}: Score={data['score']:.2f}, Confidence={data['confidence']:.2f}, OOV={len(data['oov_indices'])}, Fluent={data['is_fluent']}\n")
+#         f.write("\nMismatches:\n")
+#         for k, v in result["result"]["mismatches"].items():
+#             f.write(f"{k}: indices → {v}\n")
+#     print(f"Text output saved to: {txt_output_path}")

@@ -52,6 +52,12 @@ def process_characters(image_no: int, total_chars: int, user_need: str = "both",
 
     final_sequence = ' '.join(final_characters)
 
+    module_dir = os.path.dirname(os.path.abspath(__file__))
+    predictions_file = os.path.join(module_dir, '..', '..', 'results', 'module2', "predictions.txt")
+
+    with open(predictions_file, "w", encoding="utf-8") as pf:
+        pf.write(f"result = {final_sequence}\n")
+
     return {
         "image_no": image_no,
         "total_chars": total_chars,

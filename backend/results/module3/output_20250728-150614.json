@@ -1,0 +1,122 @@
+{
+    "input": "පමමකශිවහලෙණෙශගශ",
+    "bert": [
+        "පමමක",
+        "ශිවහ",
+        "ලෙණෙ",
+        "ශගශ"
+    ],
+    "ltr": [
+        "පමමක",
+        "ශිවහ",
+        "ලෙණෙ",
+        "ශගශ"
+    ],
+    "rtl": [
+        "ප",
+        "ම",
+        "ම",
+        "ක",
+        "ශිවහ",
+        "ලෙණෙ",
+        "ශගශ"
+    ],
+    "result": {
+        "candidates": {
+            "BERT": {
+                "words": [
+                    "පමමක",
+                    "ශිවහ",
+                    "ලෙණෙ",
+                    "ශගශ"
+                ],
+                "sentence": "පමමක ශිවහ ලෙණෙ ශගශ",
+                "score": -38.18463205532818,
+                "oov_indices": [
+                    0
+                ],
+                "is_fluent": true,
+                "confidence": 0.92
+            },
+            "LTR": {
+                "words": [
+                    "පමමක",
+                    "ශිවහ",
+                    "ලෙණෙ",
+                    "ශගශ"
+                ],
+                "sentence": "පමමක ශිවහ ලෙණෙ ශගශ",
+                "score": -38.18463205532818,
+                "oov_indices": [
+                    0
+                ],
+                "is_fluent": true,
+                "confidence": 0.92
+            },
+            "RTL": {
+                "words": [
+                    "ප",
+                    "ම",
+                    "ම",
+                    "ක",
+                    "ශිවහ",
+                    "ලෙණෙ",
+                    "ශගශ"
+                ],
+                "sentence": "ප ම ම ක ශිවහ ලෙණෙ ශගශ",
+                "score": -64.55315541553887,
+                "oov_indices": [
+                    0
+                ],
+                "is_fluent": false,
+                "confidence": 0.26
+            }
+        },
+        "mismatches": {
+            "BERT_vs_LTR": [],
+            "BERT_vs_RTL": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "LTR_vs_RTL": [
+                0,
+                1,
+                2,
+                3
+            ]
+        }
+    },
+    "best": {
+        "words": [
+            "පමමක",
+            "ශිවහ",
+            "ලෙණෙ",
+            "ශගශ"
+        ],
+        "sentence": "පමමක ශිවහ ලෙණෙ ශගශ",
+        "score": -38.18463205532818,
+        "oov_indices": [
+            0
+        ],
+        "is_fluent": true,
+        "confidence": 0.92
+    },
+    "needs_correction": true,
+    "corrected": "පරුමක ශිවහ ලෙණෙ ශගශ",
+    "evaluation": {
+        "ngram_score": -30.3173,
+        "oov_words": [],
+        "fuzzy_matches": {},
+        "num_oov": 0,
+        "fuzzy_accuracy": 0.9167,
+        "edit_distance": 1,
+        "needs_review": true
+    },
+    "fuzzy_matches": {},
+    "oov_words": [],
+    "fuzzy_accuracy": 0.9167,
+    "edit_distance": 1,
+    "ngram_score": -30.3173
+}
