@@ -61,70 +61,70 @@ def run_full_pipeline(image_path: str, image_no: int, threshold: int = 2000):
     # Run Module 2
     # predictions = run_module2(image_no=image_no, total_chars=total_chars, user_need="both")
 
-    print("Module 2 complete.")
+    # print("Module 2 complete."
 
-    # # Save Module 2 result to predictions.txt
-    module3_dir = os.path.join("./results/module3")
-    os.makedirs(module3_dir, exist_ok=True)
+    # # # Save Module 2 result to predictions.txt
+    # module3_dir = os.path.join("./results/module3")
+    # os.makedirs(module3_dir, exist_ok=True)
 
-    sequence_str = predictions.get("final_sequence", "")
-    pred_file_path = os.path.join(module3_dir, "predictions.txt")
-    with open(pred_file_path, "w", encoding="utf-8") as f:
-        f.write(sequence_str.strip())
+    # sequence_str = predictions.get("final_sequence", "")
+    # pred_file_path = os.path.join(module3_dir, "predictions.txt")
+    # with open(pred_file_path, "w", encoding="utf-8") as f:
+    #     f.write(sequence_str.strip())
 
-    print("➡ Running Module 3: Grapheme Segmentation and Correction...")
+    # print("➡ Running Module 3: Grapheme Segmentation and Correction...")
 
-    # Read and process with Module 3
-    with open(pred_file_path, "r", encoding="utf-8") as f:
-        raw_text = f.read().strip()
+    # # Read and process with Module 3
+    # with open(pred_file_path, "r", encoding="utf-8") as f:
+    #     raw_text = f.read().strip()
 
-    if not raw_text:
-        print("⚠ No text found in predictions.txt for Module 3")
-        return predictions
+    # if not raw_text:
+    #     print("⚠ No text found in predictions.txt for Module 3")
+    #     return predictions
 
-    module3_result = run_module3(raw_text)
+    # module3_result = run_module3(raw_text)
 
-    print("Module 3 complete.")
-    print("\nFinal Segmented Output:")
-    print("Segmented:", " ".join(module3_result["best"]["words"]))
-    if module3_result["needs_correction"]:
-        print("Corrected:", module3_result["corrected"])
+    # print("Module 3 complete.")
+    # print("\nFinal Segmented Output:")
+    # print("Segmented:", " ".join(module3_result["best"]["words"]))
+    # if module3_result["needs_correction"]:
+    #     print("Corrected:", module3_result["corrected"])
 
-    # Save Module 3 result to result.txt (needed for Module 4)
-    result_path = os.path.join(module3_dir, "result.txt")
-    with open(result_path, "w", encoding="utf-8") as f:
-        f.write(str(module3_result["best"]["words"]))  # Write as Python list string
+    # # Save Module 3 result to result.txt (needed for Module 4)
+    # result_path = os.path.join(module3_dir, "result.txt")
+    # with open(result_path, "w", encoding="utf-8") as f:
+    #     f.write(str(module3_result["best"]["words"]))  # Write as Python list string
 
-    print("➡ Running Module 4: Grammatical Reordering and Correction...")
+    # print("➡ Running Module 4: Grammatical Reordering and Correction...")
 
-    # Read and parse result.txt to get Brahmi word list
-    with open(result_path, "r", encoding="utf-8") as f:
-        words_str = f.read().strip()
-        try:
-            brahmi_words = ast.literal_eval(words_str)
-        except Exception as e:
-            print(f"⚠ Failed to parse result.txt: {e}")
-            brahmi_words = []
+    # # Read and parse result.txt to get Brahmi word list
+    # with open(result_path, "r", encoding="utf-8") as f:
+    #     words_str = f.read().strip()
+    #     try:
+    #         brahmi_words = ast.literal_eval(words_str)
+    #     except Exception as e:
+    #         print(f"⚠ Failed to parse result.txt: {e}")
+    #         brahmi_words = []
 
-    if not isinstance(brahmi_words, list) or not brahmi_words:
-        print("⚠ No valid Brahmi word list found for Module 4")
-        return {
-            "module2_prediction": predictions,
-            "module3_segmentation": module3_result,
-        }
+    # if not isinstance(brahmi_words, list) or not brahmi_words:
+    #     print("⚠ No valid Brahmi word list found for Module 4")
+    #     return {
+    #         "module2_prediction": predictions,
+    #         "module3_segmentation": module3_result,
+    #     }
 
-    module4_result = run_module4(brahmi_words)
+    # module4_result = run_module4(brahmi_words)
 
-    print("Module 4 complete.")
-    print("\nFinal Reordered Sentence:")
-    print("Reordered:", module4_result.get("corrected_sentence", "N/A"))
+    # print("Module 4 complete.")
+    # print("\nFinal Reordered Sentence:")
+    # print("Reordered:", module4_result.get("corrected_sentence", "N/A"))
 
-    # Combine all results
-    return {
-        "module2_prediction": predictions,
-        "module3_segmentation": module3_result,
-        "module4_output": module4_result
-    }
+    # # Combine all results
+    # return {
+    #     "module2_prediction": predictions,
+    #     "module3_segmentation": module3_result,
+    #     "module4_output": module4_result
+    # }
 
 
 def extract_image_number(image_path: str) -> int:

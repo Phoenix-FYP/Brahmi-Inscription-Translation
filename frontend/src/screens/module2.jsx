@@ -8,51 +8,56 @@ const Module2 = ({ corpusOutput }) => {
   const [error, setError] = useState("");
   const[finalsequence, setFinalSequence] = useState("");
 
-  // Fetch Module 2 results when component mounts
+  console.log("Module2 component rendered with corpusOutput:", corpusOutput);
+
   useEffect(() => {
-    const fetchModule2Results = async () => {
-      if (!corpusOutput) {
-        setError("No corpus output provided.");
-        return;
-      }
-      
-      setFinalSequence(corpusOutput);
+  const fetchModule2Results = async () => {
+    if (!corpusOutput) {
+      setError("No corpus output provided.");
+      return;
+    }
 
-      setLoading(true);
-      setError("");
+    setFinalSequence(corpusOutput);
+    setError("");
+    setLoading(false); // Set to false since nothing async is running now
+  };
 
-      try {
-        const response = await axios.post(
-          "http://localhost:8000/api/run-module2/",
-          {
-            image_no,
-            segmented_images: segmentedImages,
-          },
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+  fetchModule2Results(); // <-- CALL IT HERE
+}, [corpusOutput]);
 
-        // Transform backend response to match CharacterSection format
-        const predictions = response.data.predictions || {};
-        const formattedData = [
-          {
-            title: "Character Recognition Results",
-            characterImages: segmentedImages,
-            mappedCorpus: predictions.final_sequence || "No predictions available",
-          },
-        ];
-        setModule2Data(formattedData);
-      } catch (err) {
-        setError("Error fetching Module 2 results. Please try again.");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchModule2Results();
-  }, [image_no, segmentedImages]);
+  //     try {
+  //       const response = await axios.post(
+  //         "http://localhost:8000/api/run-module2/",
+  //         {
+  //           image_no,
+  //           segmented_images: segmentedImages,
+  //         },
+  //         {
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       );
+
+  //       // Transform backend response to match CharacterSection format
+  //       const predictions = response.data.predictions || {};
+  //       const formattedData = [
+  //         {
+  //           title: "Character Recognition Results",
+  //           characterImages: segmentedImages,
+  //           mappedCorpus: predictions.final_sequence || "No predictions available",
+  //         },
+  //       ];
+  //       setModule2Data(formattedData);
+  //     } catch (err) {
+  //       setError("Error fetching Module 2 results. Please try again.");
+  //       console.error(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchModule2Results();
+  // }, [image_no, segmentedImages]);
 
   // Combine all mappedCorpus strings into one
   const combinedCorpus = module2Data.map((s) => s.mappedCorpus).join(" ");
@@ -90,7 +95,7 @@ const handleProceed = async () => {
       )}
 
       {finalsequence && !error && (
-        <p className="text-center text-gray-600">
+        <p className="text-center text-gray-600 text-4xl font-semibold mb-4">
           {finalsequence}
         </p>
       )}

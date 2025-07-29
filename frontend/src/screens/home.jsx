@@ -19,7 +19,9 @@ const Home = ({ corpusOutput, setCorpusOutput }) => {
         />
       </section>
       <section id="module2" class="py-20">
-        <Module2 />
+        <Module2 
+        corpusOutput={corpusOutput}
+        />
       </section>
       <section id="module3" class=" py-20">
         <Module3 />
