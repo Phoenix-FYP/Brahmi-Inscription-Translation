@@ -60,7 +60,7 @@ def calculate_character_widths_and_z_scores(clusters):
     
     return character_widths, modified_z_scores, raw_deviations, median_width, mad
 
-def process_final_clusters(clusters, modified_z_scores, raw_deviations, image, output_dir, image_no):
+def process_final_clusters(clusters, modified_z_scores, raw_deviations, image, output_dir, image_no, output_base2):
     """Process clusters, handle outliers, and save character images."""
     final_clusters = []
     char_index = 1
@@ -98,8 +98,10 @@ def process_final_clusters(clusters, modified_z_scores, raw_deviations, image, o
                     'is_sub_character': True
                 })
                 char_filename1 = os.path.join(output_dir, f"{image_no}_image_character_{char_index}.png")
+                char_filename2 = os.path.join(output_base2, f"image_{image_no}/{image_no}_image_character_{char_index}.png")
                 char_image1 = image[min_y:max_y+1, min_x:mid_x+1]
                 cv.imwrite(char_filename1, char_image1)
+                cv.imwrite(char_filename2, char_image1)
                 print(f"Saved sub-character {char_index} to {char_filename1}")
                 char_index += 1
             
@@ -118,8 +120,10 @@ def process_final_clusters(clusters, modified_z_scores, raw_deviations, image, o
                     'is_sub_character': True
                 })
                 char_filename2 = os.path.join(output_dir, f"{image_no}_image_character_{char_index}.png")
+                char_filename3 = os.path.join(output_base2, f"image_{image_no}/{image_no}_image_character_{char_index}.png")
                 char_image2 = image[min_y:max_y+1, mid_x+1:max_x+1]
                 cv.imwrite(char_filename2, char_image2)
+                cv.imwrite(char_filename3, char_image2)
                 print(f"Saved sub-character {char_index} to {char_filename2}")
                 char_index += 1
         else:
@@ -127,8 +131,10 @@ def process_final_clusters(clusters, modified_z_scores, raw_deviations, image, o
             cluster['is_sub_character'] = False
             final_clusters.append(cluster)
             char_filename = os.path.join(output_dir, f"{image_no}_image_character_{char_index}.png")
+            char_filename2 = os.path.join(output_base2, f"image_{image_no}/{image_no}_image_character_{char_index}.png")
             char_image = image[min_y:max_y+1, min_x:max_x+1]
             cv.imwrite(char_filename, char_image)
+            cv.imwrite(char_filename2, char_image)
             print(f"Saved character {char_index} to {char_filename}")
             char_index += 1
     
