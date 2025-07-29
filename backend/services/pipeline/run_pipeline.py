@@ -45,7 +45,7 @@ def run_full_pipeline(image_path: str, image_no: int, threshold: int = 2000):
 
     print("Module 2 complete.")
 
-    # Save Module 2 result to predictions.txt
+    # # Save Module 2 result to predictions.txt
     module3_dir = os.path.join("./results/module3")
     os.makedirs(module3_dir, exist_ok=True)
 

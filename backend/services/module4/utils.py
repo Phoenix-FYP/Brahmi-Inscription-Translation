@@ -1,7 +1,7 @@
 import os
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_FILE = os.path.join(CURRENT_DIR, '..', '..', 'results', 'module4', 'final_output.txt')
+OUTPUT_FILE = os.path.join(CURRENT_DIR, '..', '..', 'results', 'module4', 'output.txt')
 
 def save_output(mapped, tokens, pos_tags, xpos_tags, deps, reordered, gendered, morphed, brhami):
     with open(OUTPUT_FILE, 'a', encoding='utf-8') as f:

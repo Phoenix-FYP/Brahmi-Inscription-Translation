@@ -1,0 +1,9 @@
+Validation Evaluation Results
+Total Samples: 500
+Exact Match Accuracy: 0.8140
+Average BLEU Score: 0.9011
+Average METEOR Score: 0.9355
+Average chrF Score: 96.2212
+Average Precision: 0.9693
+Average Recall: 0.9679
+Average F1 Score: 0.9681

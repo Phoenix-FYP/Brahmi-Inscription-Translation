@@ -1,0 +1,6 @@
+Evaluation complete: 500 samples
+Exact Match: 432/500 = 86.40%
+Avg BLEU: 0.8669
+Avg METEOR: 0.9718
+Avg chrF: 97.8856
+Avg F1: 0.9869
