@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaUpload } from "react-icons/fa";
 import axios from "axios";
 
-const Module1 = () => {
+const Module1 = ({ corpusOutput, setCorpusOutput }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [threshold, setThreshold] = useState(2000);
   const [denoisedImages, setDenoisedImages] = useState([]);
@@ -83,6 +83,7 @@ const Module1 = () => {
         }
       );
       console.log("Module 2 response:", response.data);
+      setCorpusOutput(response.data.predictions.final_sequence || "");
       // Handle Module 2 results (e.g., update state or navigate to Module 2 screen)
     } catch (err) {
       setError("Error processing Module 2. Please try again.");

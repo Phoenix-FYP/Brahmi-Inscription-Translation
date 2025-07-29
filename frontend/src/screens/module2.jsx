@@ -2,18 +2,21 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CharacterSection from "../components/CharacterSection";
 
-const Module2 = ({ setCorpusOutput, image_no, segmentedImages }) => {
+const Module2 = ({ corpusOutput }) => {
   const [module2Data, setModule2Data] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const[finalsequence, setFinalSequence] = useState("");
 
   // Fetch Module 2 results when component mounts
   useEffect(() => {
     const fetchModule2Results = async () => {
-      if (!image_no || !segmentedImages || segmentedImages.length === 0) {
-        setError("No segmented images or image number provided.");
+      if (!corpusOutput) {
+        setError("No corpus output provided.");
         return;
       }
+      
+      setFinalSequence(corpusOutput);
 
       setLoading(true);
       setError("");
@@ -86,9 +89,9 @@ const handleProceed = async () => {
         <p className="text-center text-red-600 font-semibold mb-4">{error}</p>
       )}
 
-      {!loading && module2Data.length === 0 && !error && (
+      {finalsequence && !error && (
         <p className="text-center text-gray-600">
-          No results available. Please process an image in Module 1 first.
+          {finalsequence}
         </p>
       )}
 

@@ -9,10 +9,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home setCorpusOutput={setCorpusOutput} />} />
+        <Route path="/" element={<Home setCorpusOutput={setCorpusOutput} corpusOutput={corpusOutput} />} />
         <Route
           path="/module2"
-          element={<Module2 setCorpusOutput={setCorpusOutput} />}
+          element={<Module2 setCorpusOutput={setCorpusOutput} corpusOutput={corpusOutput} />}
         />
       </Routes>
     </Router>
