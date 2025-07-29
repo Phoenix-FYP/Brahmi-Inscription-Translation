@@ -8,7 +8,7 @@ from .image_cropping import create_irregular_crop
 from .clutser_analysis import analyze_cluster_statistics, calculate_character_widths_and_z_scores, process_final_clusters
 from .visualization import plot_image_processing_results, plot_labeled_image
 
-def process_image(image_path: str, output_dir: str = "./cropped_final_characters", image_no: int = 1, threshold: int = 2000) -> dict:
+def process_image(image_path: str, output_dir: str = "./cropped_final_characters", image_no: int = 1, threshold: int = 2000, output_base2:str = "../results/module-1") -> dict:
     THRESHOLD = threshold
     max_iterations = 10
 
@@ -28,21 +28,25 @@ def process_image(image_path: str, output_dir: str = "./cropped_final_characters
     gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
     binary_inverted = cv.bitwise_not(gray)
     save_image(binary_inverted, f"{output_dir}/dilated.png")
+    save_image(binary_inverted, f"{output_base2}/dilated.png")
 
     height, width = binary_inverted.shape
     black_clusters, average_size = analyze_black_pixel_clusters(binary_inverted)
 
     cleaned_image = binary_inverted
     save_image(cleaned_image, f"{output_dir}/cleaned_image.png")
+    save_image(cleaned_image, f"{output_base2}/cleaned_image.png")
 
     if black_clusters:
         largest_black_cluster = max(black_clusters, key=lambda cluster: cluster['size'])
         cropped_image = create_irregular_crop(cleaned_image, largest_black_cluster['pixels'])
         save_image(cropped_image, f"{output_dir}/cropped_image.png")
+        save_image(cropped_image, f"{output_base2}/cropped_image.png")
     else:
         largest_black_cluster = None
         cropped_image = cleaned_image.copy()
         save_image(cropped_image, f"{output_dir}/cropped_image.png")
+        save_image(cropped_image, f"{output_base2}/cropped_image.png")
 
     # First pass: remove white noise
     current_image = cropped_image.copy()
@@ -52,12 +56,14 @@ def process_image(image_path: str, output_dir: str = "./cropped_final_characters
             break
         current_image = denoised_image
     save_image(current_image, f"{output_dir}/denoised_image.png")
-
+    save_image(current_image, f"{output_base2}/denoised_image.png")
     # Invert and convert boundary black pixels
     binary_inverted_current_image = np.bitwise_not(current_image)
     save_image(binary_inverted_current_image, f"{output_dir}/denoised_inverted_image.png")
+    save_image(binary_inverted_current_image, f"{output_base2}/denoised_inverted_image.png")
     final_image = convert_black_to_white(binary_inverted_current_image)
     save_image(final_image, f"{output_dir}/final_image.png")
+    save_image(final_image, f"{output_base2}/final_image.png")
 
     # Second pass: remove black noise
     current_image_second_pass = final_image.copy()
@@ -68,6 +74,7 @@ def process_image(image_path: str, output_dir: str = "./cropped_final_characters
         current_image_second_pass = denoised_image
     final_image_second_pass = current_image_second_pass
     save_image(final_image_second_pass, f"{output_dir}/final_image_second_pass.png")
+    save_image(final_image_second_pass, f"{output_base2}/final_image_second_pass.png")
 
     # Analyze and merge clusters
     clusters, average_size = analyze_black_pixel_clusters(final_image_second_pass)

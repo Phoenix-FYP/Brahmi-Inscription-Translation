@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaUpload } from "react-icons/fa";
 import axios from "axios";
-import imge3 from "../../../results/module-1/2_image_character_2.png";
+
 const Module1 = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [threshold, setThreshold] = useState(2000);

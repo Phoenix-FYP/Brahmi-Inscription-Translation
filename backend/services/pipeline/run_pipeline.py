@@ -9,13 +9,20 @@ def run_full_pipeline(image_path: str, image_no: int, threshold: int = 2000):
     # Run Module 1
     result = run_module1(image_path=image_path, image_no=image_no, threshold=threshold)
     output_dir = result["output_dir"]
+    output_dir2 = result["output_dir2"]
 
     # Get list of saved character images
     char_image_paths = [
         os.path.join(output_dir, f) for f in os.listdir(output_dir)
         if f.endswith(".png") and "_character_" in f
     ]
-    char_image_paths.sort()  # Ensure order
+    char_image_paths.sort() 
+
+    char_image_paths2 = [
+        os.path.join(output_dir2, f) for f in os.listdir(output_dir2)
+        if f.endswith(".png") and "_character_" in f
+    ]
+    char_image_paths2.sort() 
 
     if not char_image_paths:
         print("No character segments returned from Module 1")
@@ -29,9 +36,17 @@ def run_full_pipeline(image_path: str, image_no: int, threshold: int = 2000):
     module2_dir = os.path.join("./results/module2", f"image_{image_no}")
     os.makedirs(module2_dir, exist_ok=True)
 
+    module3_dir = os.path.join("../../results/module-1", f"image_{image_no}")
+    os.makedirs(module3_dir, exist_ok=True)
+
     for i, char_path in enumerate(char_image_paths):
         dst_filename = f"{image_no}_image_character_{i+1}.png"
         dst_path = os.path.join(module2_dir, dst_filename)
+        shutil.copy(char_path, dst_path)
+
+    for i, char_path in enumerate(char_image_paths2):
+        dst_filename = f"{image_no}_image_character_{i+1}.png"
+        dst_path = os.path.join(module3_dir, dst_filename)
         shutil.copy(char_path, dst_path)
 
     print("Characters copied. Moving to Module 2...")

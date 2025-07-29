@@ -25,14 +25,18 @@ async def run_pipeline(
     # Extract image number
     image_no = extract_image_number(file_path)
     output_dir = f"../results/module-1/image_{image_no}"
+    print(f"Output directory: {output_dir}")
     # Run the pipeline
     result = run_full_pipeline(image_path=file_path, image_no=image_no, threshold=threshold)
+
     char_images = [
-        f"/images/module-1/image_{image_no}/{f}"
+        f"../results/module-1/image_{image_no}/{f}"
         for f in os.listdir(output_dir)
         if f.endswith(".png") and "_character_" in f
     ]
-
+    char_images = [
+        path.replace("../results", "/images") for path in char_images
+    ]
     return JSONResponse(content={
         "message": "Pipeline completed successfully",
         "image_no": image_no,
