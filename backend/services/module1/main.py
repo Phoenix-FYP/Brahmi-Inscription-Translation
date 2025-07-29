@@ -8,7 +8,7 @@ from .image_cropping import create_irregular_crop
 from .clutser_analysis import analyze_cluster_statistics, calculate_character_widths_and_z_scores, process_final_clusters
 from .visualization import plot_image_processing_results, plot_labeled_image
 
-def process_image(image_path: str, output_dir: str = "./cropped_final_characters", image_no: int = 1, threshold: int = 2000, output_base2:str = "../results/module-1") -> dict:
+def process_image(image_path: str, output_dir: str = "./cropped_final_characters", image_no: int = 1, threshold: int = 2000, output_base2:str = "../results/module-1/") -> dict:
     THRESHOLD = threshold
     max_iterations = 10
 
@@ -22,7 +22,7 @@ def process_image(image_path: str, output_dir: str = "./cropped_final_characters
         kernel_size=(1, 1),
         dilation_iterations=1
     )
-    visualize_preprocessing_steps(original_image, intermediate_images)
+    # visualize_preprocessing_steps(original_image, intermediate_images)
 
     image = cv.imread(f"{output_dir}/cleaned_image_otsu_adjusted.png")
     gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
@@ -89,7 +89,7 @@ def process_image(image_path: str, output_dir: str = "./cropped_final_characters
     # Final character extraction
     final_clusters, char_index = process_final_clusters(
         clusters, modified_z_scores, raw_deviations,
-        final_image_second_pass, output_dir, image_no
+        final_image_second_pass, output_dir, image_no,output_base2
     )
 
     # Visualizations
