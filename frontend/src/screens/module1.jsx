@@ -47,7 +47,11 @@ const Module1 = () => {
       console.log("Response from backend:", response.data);
       // Update state with returned images
       setDenoisedImages([
+         `/images/module-1/image_${response.data.image_no}/dilated.png`,
+          `/images/module-1/image_${response.data.image_no}/cropped_image.png`,
         `/images/module-1/image_${response.data.image_no}/denoised_image.png`,
+        `/images/module-1/image_${response.data.image_no}/denoised_inverted_image.png`,
+         `/images/module-1/image_${response.data.image_no}/final_image.png`,
         `/images/module-1/image_${response.data.image_no}/final_image_second_pass.png`,
       ]);
       setSegmentedImages(response.data.char_images || []);
@@ -64,15 +68,18 @@ const Module1 = () => {
       setError("No segmented images to process.");
       return;
     }
-
+    
     try {
       setLoading(true);
+      const formData2 = new FormData();
+      formData2.append("image_no", segmentedImages[0].split("image_")[1].split("/")[0]);
+      formData2.append("total_chars", segmentedImages.length);
       // Send segmented images to Module 2 (assuming a new endpoint)
       const response = await axios.post(
         "http://localhost:8000/api/run-module2/",
+        formData2,
         {
-          segmentedImages,
-          image_no: segmentedImages[0].split("image_")[1].split("/")[0],
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
       console.log("Module 2 response:", response.data);

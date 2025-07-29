@@ -81,20 +81,19 @@ async def run_pipeline(
 @app.post("/api/run-module2/")
 async def run_module2_endpoint(
     image_no: int = Form(...),
-    segmented_images: list = Form(...),
+    total_chars: int = Form(...),
 ):
-    total_chars = len(segmented_images)
-
+    print(image_no, total_chars, "image_no and total_chars in run_module2_endpoint")
     base_dir = "./results/module2"
     module2_dir = os.path.join(base_dir, f"image_{image_no}")
     os.makedirs(module2_dir, exist_ok=True)
 
-    for i, img_path in enumerate(segmented_images):
-        src_path = img_path.replace("/images", ".")
-        dst_filename = f"{image_no}_image_character_{i+1}.png"
-        dst_path = os.path.join(module2_dir, dst_filename)
-        shutil.copy(src_path, dst_path)
-
+    # for i, img_path in enumerate(segmented_images):
+    #     src_path = img_path.replace("/images", ".")
+    #     dst_filename = f"{image_no}_image_character_{i+1}.png"
+    #     dst_path = os.path.join(module2_dir, dst_filename)
+    #     shutil.copy(src_path, dst_path)
+ 
     predictions = run_module2(image_no=image_no, total_chars=total_chars, user_need="both")
 
     return JSONResponse(content={
