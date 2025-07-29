@@ -61,7 +61,6 @@ def run_full_pipeline(image_path: str, image_no: int, threshold: int = 2000):
     # Run Module 2
     # predictions = run_module2(image_no=image_no, total_chars=total_chars, user_need="both")
 
-<<<<<<< HEAD
     print("Module 2 complete.")
 
     # # Save Module 2 result to predictions.txt
@@ -127,10 +126,6 @@ def run_full_pipeline(image_path: str, image_no: int, threshold: int = 2000):
         "module4_output": module4_result
     }
 
-=======
-    # print("Module 2 complete.")
-    # return predictions
->>>>>>> b28d8230d4133ef0252aed78f01fd9194e5be5c3
 
 def extract_image_number(image_path: str) -> int:
     """
