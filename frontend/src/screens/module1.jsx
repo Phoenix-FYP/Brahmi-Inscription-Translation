@@ -160,19 +160,37 @@ const Module1 = ({ corpusOutput, setCorpusOutput }) => {
 			{/* Denoised Images */}
 			{denoisedImages.length > 0 && (
 				<div className="bg-[#e3d6bf] mb-8 justify-center flex flex-col items-center p-15 max-w-3xl mx-auto rounded-lg shadow-lg">
-					<h3 className="text-xl font-semibold mb-4 text-center">
+					<h3 className="text-xl font-bold mb-4 text-center">
 						Denoised Process Images
 					</h3>
-					<div className="flex gap-4 flex-wrap justify-center">
-						{denoisedImages.map((src, idx) => (
-							<img
-								key={idx}
-								src={src}
-								alt="denoised"
-								className="w-auto h-48 rounded-md object-cover border border-gray-300"
-								onError={() => console.error(`Failed to load image: ${src}`)}
-							/>
-						))}
+					<div className="flex gap-4 flex-wrap flex-col h-auto w-auto justify-center">
+						{denoisedImages.map((src, idx) => {
+							const labels = [
+								'Binary Inverted Images',
+								'Cropped Image',
+								'Noise Removal First Pass',
+								'Inverted Denoised Image after first pass',
+								'Black to white conversion',
+								'Inverted Denoised Image after first pass',
+								'Labeled characters',
+							];
+
+							return (
+								<div key={idx} className="flex flex-col items-center">
+									<p className="text-lg font-medium text-center mb-2">
+										{labels[idx]}
+									</p>
+									<img
+										src={src}
+										alt={labels[idx]}
+										className="w-full h-48 rounded-md object-cover border border-gray-300"
+										onError={() =>
+											console.error(`Failed to load image: ${src}`)
+										}
+									/>
+								</div>
+							);
+						})}
 					</div>
 				</div>
 			)}
