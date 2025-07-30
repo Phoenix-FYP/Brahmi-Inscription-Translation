@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CharacterSection from "../components/CharacterSection";
 
-const Module2 = ({ corpusOutput }) => {
+const Module2 = ({ corpusOutput,module3data,setModule3Data }) => {
   const [module2Data, setModule2Data] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const[finalsequence, setFinalSequence] = useState("");
+ 
 
   console.log("Module2 component rendered with corpusOutput:", corpusOutput);
 
@@ -18,6 +19,7 @@ const Module2 = ({ corpusOutput }) => {
     }
 
     setFinalSequence(corpusOutput);
+    setModule2Data(corpusOutput)
     setError("");
     setLoading(false); // Set to false since nothing async is running now
   };
@@ -60,27 +62,49 @@ const Module2 = ({ corpusOutput }) => {
   // }, [image_no, segmentedImages]);
 
   // Combine all mappedCorpus strings into one
-  const combinedCorpus = module2Data.map((s) => s.mappedCorpus).join(" ");
+  // const combinedCorpus = module2Data.map((s) => s.mappedCorpus).join(" ");
 
-const handleProceed = async () => {
-    if (segmentedImages.length === 0) {
-      setError("No segmented images to process.");
-      return;
-    }
+const handleProceedToModule3 = async () => {
+	if (!finalsequence) {
+		setError('No final sequence available to proceed.');
+		return;
+	}
 
-    try {
-      setLoading(true);
-      // Navigate to Module2 with image_no and segmentedImages
-      navigate("/module2", {
-        state: { image_no, segmentedImages },
-      });
-    } catch (err) {
-      setError("Error navigating to Module 2. Please try again.");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+	try {
+		setLoading(true);
+
+		const formData3 = new FormData();
+		formData3.append(
+      'final_sequence',
+      finalsequence
+		);
+
+		const response = await axios.post(
+			'http://localhost:8000/api/run-module3/',
+			formData3,
+			{
+				headers: { 'Content-Type': 'multipart/form-data' },
+			}
+		);
+
+		console.log('Module 3 response:', response.data);
+    setModule3Data(response.data.predictions || []);
+
+   
+		// Assuming Module 3 returns a corrected sequence or similar output
+		// setModule3Data(finalsequence);
+		// console.log('Grammar Corrected Output:', response.data.corrected_sequence);
+		
+		// You can also handle additional state updates or navigation here
+
+	} catch (err) {
+		setError('Error processing Module 3. Please try again.');
+		console.error(err);
+	} finally {
+		setLoading(false);
+	}
+};
+
 
   return (
     <div className="bg-[#e3d6bf] mb-8 justify-center flex flex-col items-center p-15 max-w-3xl mx-auto rounded-lg shadow-lg">
@@ -100,19 +124,19 @@ const handleProceed = async () => {
         </p>
       )}
 
-      {module2Data.map((section, index) => (
+      {/* {module2Data.map((section, index) => (
         <CharacterSection
           key={index}
           title={section.title}
           characterImages={section.characterImages}
           mappedCorpus={section.mappedCorpus}
         />
-      ))}
+      ))} */}
 
       {module2Data.length > 0 && (
         <div className="mt-6 text-center">
           <button
-            onClick={handleProceed}
+            onClick={handleProceedToModule3}
             disabled={loading}
             className="px-6 py-2 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition disabled:bg-gray-400"
           >

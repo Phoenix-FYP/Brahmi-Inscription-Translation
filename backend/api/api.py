@@ -5,6 +5,7 @@ import shutil
 
 from services.pipeline.run_pipeline import run_full_pipeline, extract_image_number
 from services.module2.service import run_module2
+from services.module3.service import run_module3
 
 app = APIRouter()  # ⬅️ Use APIRouter instead of FastAPI()
 
@@ -100,3 +101,27 @@ async def run_module2_endpoint(
         "image_no": image_no,
         "predictions": predictions
     })
+
+
+@app.post("/api/run-module3/")
+async def run_module2_endpoint(
+    final_sequence: str = Form(...),
+):
+    print(final_sequence, "final sequence to module3")
+    # base_dir = "./results/module2"
+    # module2_dir = os.path.join(base_dir, f"image_{image_no}")
+    # os.makedirs(module2_dir, exist_ok=True)
+
+    # for i, img_path in enumerate(segmented_images):
+    #     src_path = img_path.replace("/images", ".")
+    #     dst_filename = f"{image_no}_image_character_{i+1}.png"
+    #     dst_path = os.path.join(module2_dir, dst_filename)
+    #     shutil.copy(src_path, dst_path)
+ 
+    predictions = run_module3(final_sequence=final_sequence)
+    return JSONResponse(content={
+        "final_sequence": final_sequence,
+        "predictions": predictions,
+        "best_words": predictions["best"]["words"]
+    })
+

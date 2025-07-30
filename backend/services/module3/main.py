@@ -135,10 +135,22 @@ def run_pipeline(raw_input):
     print(f"\n Result saved to: {json_file_path}")
 
     # === Save best result as plain text ===
+
+    os.makedirs("../frontend/public/images/module-3", exist_ok=True)
+
+
+    txt_file_path2 = os.path.join("../frontend/public/images/module-3/", f"result.txt")
+    with open(txt_file_path2, "w", encoding="utf-8") as f:
+        f.write("result = " + str(result["best"]["words"]))
+    print(f" Best result saved to: {txt_file_path2}\n")
+
+
     txt_file_path = os.path.join(result_dir, f"result.txt")
     with open(txt_file_path, "w", encoding="utf-8") as f:
         f.write("result = " + str(result["best"]["words"]))
     print(f" Best result saved to: {txt_file_path}\n")
+
+
 
     return result
     

@@ -5,7 +5,7 @@ import Module2 from "./module2";
 import Module3 from "./module3";
 import Module4 from "./module4";
 
-const Home = ({ corpusOutput, setCorpusOutput }) => {
+const Home = ({ corpusOutput, setCorpusOutput,module3data,setModule3Data }) => {
   return (
     <div>
       <header className="bg-[#D8AF78] text-white p-4 text-center rounded">
@@ -21,10 +21,12 @@ const Home = ({ corpusOutput, setCorpusOutput }) => {
       <section id="module2" class="py-20">
         <Module2 
         corpusOutput={corpusOutput}
+        module3data={module3data}
+        setModule3Data={setModule3Data}
         />
       </section>
       <section id="module3" class=" py-20">
-        <Module3 />
+        <Module3 module3data={module3data} />
       </section>
       <section id="module4" class="py-20 ">
         <Module4 />

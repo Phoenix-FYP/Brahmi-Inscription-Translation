@@ -1,5 +1,6 @@
 import os
 from .main import run_pipeline as raw_pipeline
+from .utils import normalize_str
 
 # Build safe absolute paths
 MODULE3_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -17,10 +18,10 @@ with open(main.WORD_DICT_PATH, "r", encoding="utf-8") as f:
 
 main.bigram_counts, main.trigram_counts = main.load_ngram_model(main.NGRAM_MODEL_PATH)
 
-def run_module3(text: str) -> dict:
+def run_module3(final_sequence: str) -> dict:
     """
     Wrapper function to run Module 3.
     Accepts raw grapheme string output from Module 2.
     Returns segmentation, correction, and ngram evaluation results.
     """
-    return raw_pipeline(text)
+    return raw_pipeline(normalize_str(final_sequence))
