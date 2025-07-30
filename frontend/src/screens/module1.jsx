@@ -47,6 +47,7 @@ const Module1 = ({ corpusOutput, setCorpusOutput }) => {
 			console.log('Response from backend:', response.data);
 			// Update state with returned images
 			setDenoisedImages([
+				`/images/module-1/image_${response.data.image_no}/raw_image.jpg`,
 				`/images/module-1/image_${response.data.image_no}/dilated.png`,
 				`/images/module-1/image_${response.data.image_no}/cropped_image.png`,
 				`/images/module-1/image_${response.data.image_no}/denoised_image.png`,
@@ -163,16 +164,17 @@ const Module1 = ({ corpusOutput, setCorpusOutput }) => {
 					<h3 className="text-xl font-bold mb-4 text-center">
 						Denoised Process Images
 					</h3>
-					<div className="flex gap-4 flex-wrap flex-col h-auto w-auto justify-center">
+					<div className="flex gap-4 flex-wrap flex-col h-auto w-auto  justify-center">
 						{denoisedImages.map((src, idx) => {
 							const labels = [
-								'Binary Inverted Images',
+								'Original Image',
+								'Binary Inverted Dialated Image',
 								'Cropped Image',
 								'Noise Removal First Pass',
 								'Inverted Denoised Image after first pass',
 								'Black to white conversion',
-								'Inverted Denoised Image after first pass',
-								'Labeled characters',
+								'Final Image after second pass',
+								
 							];
 
 							return (
@@ -183,7 +185,7 @@ const Module1 = ({ corpusOutput, setCorpusOutput }) => {
 									<img
 										src={src}
 										alt={labels[idx]}
-										className="w-full h-48 rounded-md object-cover border border-gray-300"
+										className="w-full h-auto rounded-md object-cover border border-gray-300"
 										onError={() =>
 											console.error(`Failed to load image: ${src}`)
 										}

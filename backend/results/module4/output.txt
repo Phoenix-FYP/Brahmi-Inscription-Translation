@@ -20,3 +20,14 @@ Gender-Corrected Sentence: නන්ද ප්‍රධනියා ලෙ​ණ
 Morphologically Completed Sentence: නන්ද න​ම් ප්‍රධනියාගේ ලෙණ
 ==================================================
 
+==================================================
+Brahmi Sentence (Input Words): පරුමක ශෙනහ ලෙණෙ ශගශ
+Mapped Sinhala Sentence: ප්‍රධානි​යා සේන ලෙ​ණ සංඝයා
+POS Tags: ['NOUN', 'PROPN', 'NOUN', 'NOUN']
+XPOS Tags: ['TITLE-MASC', '_', '_', '_']
+Dependencies: ['appos', 'nmod', 'root', 'nmod']
+Reordered Sentence: සේන ප්‍රධානි​යා ලෙ​ණ සංඝයා
+Gender-Corrected Sentence: සේන ප්‍රධානි​යා ලෙ​ණ සංඝයා
+Morphologically Completed Sentence: සේන න​ම් ප්‍රධානියාගේ ලෙ​ණ සංඝයාට දෙන ලදී
+==================================================
+

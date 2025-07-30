@@ -41,7 +41,8 @@ async def run_pipeline(
     return JSONResponse(content={
         "message": "Pipeline completed successfully",
         "image_no": image_no,
-        "char_images": char_images
+        "char_images": char_images,
+        "raw_image": f"/images/module-1/image_{image_no}/{file.filename}",
     })
 
 

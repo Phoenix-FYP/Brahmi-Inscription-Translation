@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 def preprocess_image(image_path, output_dir="./images", bias=20, kernel_size=(1, 1), dilation_iterations=1):
     """
@@ -17,6 +18,15 @@ def preprocess_image(image_path, output_dir="./images", bias=20, kernel_size=(1,
         tuple: Original image, preprocessed dilated image, and intermediate images for visualization.
     """
     # Load image and convert to grayscale
+    image = cv.imread(image_path)
+    ext = os.path.splitext(image_path)[1].lower()
+    if ext not in [".png", ".jpg", ".jpeg"]:
+        ext = ".jpg"  # Default to JPG if the extension is not recognized
+
+    # Compose output path with the same extension
+    output_path2 = os.path.join(output_dir, f"raw_image{ext}")
+    cv.imwrite(output_path2,image)
+
     image = cv.imread(image_path)
     if image is None:
         raise FileNotFoundError(f"Image '{image_path}' not found")
